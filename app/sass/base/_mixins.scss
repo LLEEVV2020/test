@@ -1,0 +1,14 @@
+@mixin DynamicFontSize($f-min, $f-max, $w-min, $w-max, $fallback: false) {
+
+    font-size: $f-min;
+  
+    @media (min-width: $w-min) {
+      @if ($fallback) {
+        font-size: $fallback;
+      }
+      font-size: calcDynamicFontSize($f-min, $f-max, $w-min, $w-max, px);  
+    }
+    @media (min-width: $w-max) {
+      font-size: $f-max;
+    }
+}

@@ -1,0 +1,17 @@
+.mastheader{
+    background:#b46ae3; 
+    @include DynamicFontSize(16px, 24px, 480px, 1280px, 18px);
+  }
+  .page-title{
+    background:#51a7fa; 
+  }
+  .main-content{
+    background:#70bf40; 
+    min-height:500px;
+  }
+  .sidebar{
+    background:#f49018; 
+  }
+  .footer{
+    background:#0265c0; 
+  }

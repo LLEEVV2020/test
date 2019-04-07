@@ -1,0 +1,33 @@
+/*
+*   Обрезка единиц измерений
+*   https://css-tricks.com/snippets/sass/strip-unit-function/
+*
+*   $value: strip-unit(42px); // -> 42
+*/
+@function strip-unit($number) {
+    @if type-of($number) == 'number' and not unitless($number) {
+      @return $number / ($number * 0 + 1);
+    }
+  
+    @return $number;
+}
+
+/*
+*   Функция по динамичному изменению шрифта на сайте
+*   https://m.habr.com/ru/post/310186/
+*
+*   $value: calcDynamicFontSize(16, 24, 480, 1280, px);
+*/
+@function calcDynamicFontSize($f-min, $f-max, $w-min, $w-max, $units: px) {
+    $f-min: strip-unit($f-min);
+    $f-max: strip-unit($f-max);
+    $w-min: strip-unit($w-min);
+    $w-max: strip-unit($w-max);
+  
+    $k: ($f-max - $f-min)/($w-max - $w-min);
+    $b: $f-min - $k * $w-min;
+  
+    $b: $b + $units;
+  
+    @return calc( #{$k} * 100vw + #{$b} );
+}
