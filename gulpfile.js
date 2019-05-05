@@ -10,7 +10,7 @@ var sourcemaps =  require('gulp-sourcemaps');
 
 // Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', function() {
-    return gulp.src("app/sass/*.scss")
+    return gulp.src("assets/sass/*.scss")
         .pipe(sourcemaps.init())
         .pipe(sass())
         .pipe(autoprefixer({
@@ -18,14 +18,14 @@ gulp.task('sass', function() {
             cascade: false
         }))
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest("app/css"))
+        .pipe(gulp.dest("assets/css"))
         .pipe(browserSync.stream());
 });
 // Compile babel into js 
 gulp.task('js', function() {
-    return gulp.src(["app/babel/polyfill_custom.js", "app/babel/main.js"])
+    return gulp.src(["assets/babel/polyfill_custom.js", "assets/babel/main.js"])
         .pipe(babel())
-        .pipe(gulp.dest("app/js"));
+        .pipe(gulp.dest("assets/js"));
 });
 
 // Static Server + watching scss/html files
@@ -33,17 +33,17 @@ gulp.task('serve', gulp.parallel('sass', 'js', function() {
 
     browserSync.init({
         browser: 'chrome',
-        server: "./app",
+        server: "./assets",
         notify: false
     });
 
-    gulp.watch("app/sass/*.scss", gulp.series('sass'));
-    gulp.watch('app/babel/*.js', gulp.series('js'))
+    gulp.watch("assets/sass/*.scss", gulp.series('sass'));
+    gulp.watch('assets/babel/*.js', gulp.series('js'))
         .on('change', browserSync.reload)
         .on('unlink', function(path, stats) {
             console.log(path);
         });
-    gulp.watch("app/*.html").on('change', browserSync.reload);
+    gulp.watch("assets/*.html").on('change', browserSync.reload);
 }));
 
 
